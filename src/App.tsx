@@ -2,10 +2,42 @@ import React, { useState } from "react";
 import "./App.css";
 import { AppProps, User } from "./interface";
 
+interface FormData {
+  title: string;
+  body: string;
+}
+
+const defaultFormData = {
+  title: "",
+  body: "",
+};
+
 // 可以直接设置默认参数，并定义它的类型
 function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
   // 定义给到usstate，可选User和null类型
   const [user, setUser] = useState<User | null>(null);
+  // 定义一个formData的对象
+  const [formeData, setFormeData] = useState<FormData>(defaultFormData);
+
+  // 从state对象中拿到属性
+  const { title, body } = formeData;
+
+  // 当input 改变时，重新定义formData的值
+  // 此处的"React.ChangeEvent<HTMLInputElement>"来自于类型推断，鼠标放在e上就会显示
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormeData(prevState => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  // 点击提交时，显示当前的fordata
+  // 此处的"React.FormEvent<HTMLFormElement>"来自于类型推断，鼠标放在e上就会显示
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert(formeData);
+    setFormeData(defaultFormData);
+  };
 
   const fetchUser = () =>
     setUser({
@@ -25,6 +57,21 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       <button onClick={fetchUser}>fetch data</button>
       {user && <p>{user.name}</p>}
       {user && <p>{user.age}</p>}
+      <form onSubmit={onSubmit}>
+        <label htmlFor="title">Title</label>
+        <br />
+        <input id="title" type="text" value={title} onChange={onChange} />
+        <br />
+        <label htmlFor="body">Body</label>
+        <br />
+        <input id="body" type="text" value={body} onChange={onChange} />
+        <br />
+        <br />
+        <button type="submit">上传数据</button>
+        <br />
+      </form>
+      <div>title: {formeData.title}</div>
+      <div>body:{formeData.body}</div>
     </div>
   );
 }
