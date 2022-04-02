@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
+import { InputValueContext } from "./context/inputValue";
 import { AppProps, User } from "./interface";
 
 interface FormData {
@@ -21,6 +22,8 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
 
   // 从state对象中拿到属性
   const { title, body } = formeData;
+
+  const { state, dispatch } = useContext(InputValueContext);
 
   // 当input 改变时，重新定义formData的值
   // 此处的"React.ChangeEvent<HTMLInputElement>"来自于类型推断，鼠标放在e上就会显示
@@ -72,6 +75,10 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       </form>
       <div>title: {formeData.title}</div>
       <div>body:{formeData.body}</div>
+      <p>value:{state.inputValue}</p>
+      <button onClick={() => dispatch({ type: "set_input_value_to_100" })}>
+        数据+100
+      </button>
     </div>
   );
 }

@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import InputValueProvider from "./context/inputValue";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App headerText="hello world"></App>
+    <InputValueProvider>
+      <App headerText="hello world"></App>
+    </InputValueProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 );
