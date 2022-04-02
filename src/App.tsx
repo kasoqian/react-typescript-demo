@@ -8,6 +8,8 @@ interface FormData {
   body: string;
 }
 
+type CheckTable = "Details" | "Shopping";
+
 const defaultFormData = {
   title: "",
   body: "",
@@ -24,6 +26,8 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
   const { title, body } = formeData;
 
   const { state, dispatch } = useContext(InputValueContext);
+
+  const [checkTable, setcheckTable] = useState<CheckTable>("Details");
 
   // 当input 改变时，重新定义formData的值
   // 此处的"React.ChangeEvent<HTMLInputElement>"来自于类型推断，鼠标放在e上就会显示
@@ -79,6 +83,22 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       <button onClick={() => dispatch({ type: "set_input_value_to_100" })}>
         数据+100
       </button>
+
+      {checkTable === "Details" && (
+        <>
+          <div>this is details page</div>
+          <button onClick={() => setcheckTable("Shopping")}>
+            go to shopping
+          </button>
+        </>
+      )}
+
+      {checkTable === "Shopping" && (
+        <>
+          <div>this is shpping page</div>
+          <button onClick={() => setcheckTable("Details")}>go to detail</button>
+        </>
+      )}
     </div>
   );
 }
