@@ -7,7 +7,7 @@ interface AppProps {
   // 可选操作符，意思为该参数可选传
   extraText?: string;
 }
-// 可以直接设置默认参数，并定义他的类型
+// 可以直接设置默认参数，并定义它的类型
 function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
   return (
     <div className="App">
