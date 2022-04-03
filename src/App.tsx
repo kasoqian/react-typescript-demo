@@ -65,6 +65,12 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
     { id: 3, name: "three" },
   ];
 
+  const users2 = [
+    { id: 1, name: "one", age: 20 },
+    { id: 2, name: "two", age: 20 },
+    { id: 3, name: "three", age: 20 },
+  ];
+
   return (
     <div className="App">
       <h1>{headerText}</h1>
@@ -108,6 +114,7 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
         </>
       )}
       <Details items={users}></Details>
+      <Details items={users2}></Details>
     </div>
   );
 }

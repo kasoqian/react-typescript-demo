@@ -3,14 +3,14 @@ export interface User {
   name: string;
 }
 
-interface ItemProps {
-  items: User[];
+interface ItemProps<T> {
+  items: T[];
 }
 
-export default function Details({ items }: ItemProps) {
+export default function Details<T>({ items }: ItemProps<T>) {
   return (
     <>
-      {items.map((item: User) => {
+      {items.map((item: T) => {
         return <li>{JSON.stringify(item)}</li>;
       })}
     </>
