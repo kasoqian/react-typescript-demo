@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import "./App.css";
 import { InputValueContext } from "./context/inputValue";
 import { AppProps, User } from "./interface";
+import { User as UserDetail } from "./components/details/index";
+import Details from "./components/details/index";
 
 interface FormData {
   title: string;
@@ -57,6 +59,12 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       admin: false,
     });
 
+  const users: UserDetail[] = [
+    { id: 1, name: "one" },
+    { id: 2, name: "two" },
+    { id: 3, name: "three" },
+  ];
+
   return (
     <div className="App">
       <h1>{headerText}</h1>
@@ -99,6 +107,7 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
           <button onClick={() => setcheckTable("Details")}>go to detail</button>
         </>
       )}
+      <Details items={users}></Details>
     </div>
   );
 }
