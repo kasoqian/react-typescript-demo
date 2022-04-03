@@ -1,38 +1,47 @@
+/**
+ * 学习React-Typescript的结合使用
+ * @author: kasoqian
+ * @date 2022-04-03
+ */
 import React, { useContext, useState } from "react";
-import "./App.css";
-import { InputValueContext } from "./context/inputValue";
-import { AppProps, User } from "./interface";
-import { User as UserDetail } from "./components/details/index";
+import { InputValueContext } from "./context/input";
 import Details from "./components/details/index";
+import ComplexDetails from "./components/complexDetails";
+import "./App.css";
 
-interface FormData {
-  title: string;
-  body: string;
-}
+// 类型接口文件模块化
+import { AppProps, User, FormData, CheckTable, User2 } from "./interface";
+// 类型接口文件内嵌在组件中
+import { User as UserDetail } from "./components/details";
 
-type CheckTable = "Details" | "Shopping";
-
-const defaultFormData = {
+const defaultFormData: FormData = {
   title: "",
   body: "",
 };
 
-// 可以直接设置默认参数，并定义它的类型
+/**
+ * props传参类型-格式，默认值
+ * @param { headerText, extraText = "默认参数，extraText" } obj
+ * @type  AppProps :
+ * @returns {JSX.Element}
+ */
 function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
-  // 定义给到usstate，可选User和null类型
+  // 可选 User 和 null 类型
   const [user, setUser] = useState<User | null>(null);
-  // 定义一个formData的对象
+  // FormData 类型
   const [formeData, setFormeData] = useState<FormData>(defaultFormData);
-
-  // 从state对象中拿到属性
-  const { title, body } = formeData;
-
-  const { state, dispatch } = useContext(InputValueContext);
-
+  // CheckTable 类型
   const [checkTable, setcheckTable] = useState<CheckTable>("Details");
 
-  // 当input 改变时，重新定义formData的值
-  // 此处的"React.ChangeEvent<HTMLInputElement>"来自于类型推断，鼠标放在e上就会显示
+  const { title, body } = formeData;
+  const { state, dispatch } = useContext(InputValueContext);
+
+  /**
+   * 当 input 改变时，重新set formData值
+   * @param e
+   * @type  React.ChangeEvent<HTMLInputElement>
+   *        此处的"React.ChangeEvent<HTMLInputElement>"来自于类型推断，鼠标放在e上就会显示
+   */
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormeData(prevState => ({
       ...prevState,
@@ -40,14 +49,22 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
     }));
   };
 
-  // 点击提交时，显示当前的fordata
-  // 此处的"React.FormEvent<HTMLFormElement>"来自于类型推断，鼠标放在e上就会显示
+  /**
+   * 点击提交时，显示当前的fordata
+   * @param e
+   * @type React.FormEvent<HTMLFormElement>
+   *       此处的"React.FormEvent<HTMLFormElement>"来自于类型推断，鼠标放在e上就会显示
+   */
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert(formeData);
     setFormeData(defaultFormData);
   };
 
+  /**
+   * 一个复杂的数据结构
+   * 数据类型拆分为 User 和 Address
+   */
   const fetchUser = () =>
     setUser({
       name: "kasoqian",
@@ -65,7 +82,7 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
     { id: 3, name: "three" },
   ];
 
-  const users2 = [
+  const users2: User2[] = [
     { id: 1, name: "one", age: 20 },
     { id: 2, name: "two", age: 20 },
     { id: 3, name: "three", age: 20 },
@@ -94,6 +111,7 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       <div>title: {formeData.title}</div>
       <div>body:{formeData.body}</div>
       <p>value:{state.inputValue}</p>
+      {/* 调用 reducer 中的方法 */}
       <button onClick={() => dispatch({ type: "set_input_value_to_100" })}>
         数据+100
       </button>
@@ -115,6 +133,7 @@ function App({ headerText, extraText = "默认参数，extraText" }: AppProps) {
       )}
       <Details items={users}></Details>
       <Details items={users2}></Details>
+      <ComplexDetails></ComplexDetails>
     </div>
   );
 }
