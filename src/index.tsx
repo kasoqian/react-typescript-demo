@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App";
 import InputValueProvider from "./context/input";
 import reportWebVitals from "./reportWebVitals";
+import ScreenWidth from "./components/useHook";
 
 ReactDOM.render(
   <React.StrictMode>
     <InputValueProvider>
       <App headerText="hello world"></App>
+      <ScreenWidth />
     </InputValueProvider>
   </React.StrictMode>,
   document.getElementById("root"),
