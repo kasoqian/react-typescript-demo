@@ -57,6 +57,12 @@ const isOurClassmates: PersonType4 = (name, age) => true;
  * 提高可读性可以这样写
  */
 let isOurFriend: PersonType4;
+
+/**
+ * 类型推断
+ * 通过之前的定义，自动推断出当前类型格式
+ */
+
 isOurFriend = (name, age) => true;
 
 /**
