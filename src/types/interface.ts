@@ -1,4 +1,11 @@
 /**
+ * 适用场景
+ * 1.函数封装
+ * 2.类封装
+ * 3.复杂的类型(继承,不确定的属性)
+ */
+
+/**
  * 01 可选参数
  * 使用前要用if判断一下是否存在
  *
@@ -116,12 +123,12 @@ interface PersonDataBase {
   age: number;
 }
 
-interface PersonType extends PersonDataBase {
+interface PersonType8 extends PersonDataBase {
   getName(): void;
   getAge(): void;
 }
 
-class Person2 implements PersonType {
+class Person2 implements PersonType8 {
   name: string = "kasoqian";
   age: number = 12;
   getName(): void {}
