@@ -1,4 +1,10 @@
 /**
+ * 基础类型
+ * @author kasoqian
+ * @date 2022-04-22
+ */
+
+/**
  * 简单的数据类型
  */
 let isDone: boolean;
